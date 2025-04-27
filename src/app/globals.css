@@ -2,20 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Root variables */
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
+  --foreground-rgb: 230, 230, 230;
+  --background-start-rgb: 15, 15, 15;
   --background-end-rgb: 0, 0, 0;
 }
 
+/* Body setup */
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-    to bottom,
-    rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
+    180deg,
+    rgb(var(--background-start-rgb)) 0%,
+    rgb(var(--background-end-rgb)) 100%
   );
   overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Smooth scrolling */
@@ -23,17 +26,17 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom dark scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4a4a4a;
+  background: #3a3a3a;
   border-radius: 4px;
 }
 
@@ -41,21 +44,23 @@ html {
   background: #555;
 }
 
-/* Animation classes */
+/* Fade-in entrance animation */
 .fade-in {
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeIn 1s ease-out both;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* 3D scene container */
+/* Scene container */
 .scene-container {
   position: relative;
   width: 100%;
@@ -63,9 +68,9 @@ html {
   overflow: hidden;
 }
 
-/* Gradient text */
+/* Gradient Text - more subtle and classy */
 .gradient-text {
-  background: linear-gradient(to right, #8b5cf6, #ec4899);
+  background: linear-gradient(to right, #999, #bbb, #eee);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -73,10 +78,26 @@ html {
 
 /* Card hover effects */
 .card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
 }
 
 .card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-} 
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.08);
+}
+
+/* Button hover effect */
+.button-hover {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.button-hover:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #4b5563, #9ca3af);
+}
+
+/* Section padding */
+.section {
+  padding: 6rem 1rem;
+}
