@@ -21,10 +21,10 @@ export default function SpaceScene({ progress, activeIndex, scrollVelocity, sele
 
   return (
     <>
-      <color attach="background" args={['#02030a']} />
-      <fog attach="fog" args={['#02030a', 22, 112]} />
+      <color attach="background" args={['#03040a']} />
+      <fog attach="fog" args={['#02020b', 18, 110]} />
 
-      <ambientLight intensity={0.34} color="#91adff" />
+      <ambientLight intensity={0.26} color="#7da8d6" />
       <pointLight position={[8, 8, 8]} intensity={48} color="#45d9ff" distance={38} />
       <pointLight position={[-8, -4, -28]} intensity={36} color="#ff4fd8" distance={46} />
       <spotLight position={[0, 10, 4]} angle={0.42} penumbra={0.9} intensity={68} color="#7dffce" distance={80} />
@@ -32,12 +32,12 @@ export default function SpaceScene({ progress, activeIndex, scrollVelocity, sele
       <CameraRig curve={curve} progress={progress} selectedProject={selectedProject} />
       <CanvasHealthProbe />
 
-      <Stars radius={86} depth={82} count={5400} factor={4.8} saturation={0.7} fade speed={0.55} />
-      <Sparkles count={260} scale={[34, 18, 92]} size={2.8} speed={0.22} opacity={0.32} color="#7dffce" />
+      <Stars radius={92} depth={90} count={7800} factor={4.5} saturation={0.4} fade speed={0.22} />
+      <Sparkles count={180} scale={[34, 18, 92]} size={2.4} speed={0.18} opacity={0.18} color="#8fd7ff" />
       <ParticleField />
       <WarpTunnel curve={curve} progress={progress} velocity={scrollVelocity} activeIndex={activeIndex} />
 
-      <RocketShip curve={curve} progress={progress} />
+      <RocketShip curve={curve} progress={progress} velocity={scrollVelocity} />
       <SpaceStation position={[-4.5, 1.3, -5.7]} />
       <AsteroidBelt position={[4.5, -0.4, -16]} />
       <GalaxyZone position={[-1, 0.4, -58]} />

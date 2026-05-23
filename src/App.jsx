@@ -1,5 +1,5 @@
 import { ReactLenis } from 'lenis/react';
-import { Suspense, lazy, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import HeroSection from './sections/HeroSection.jsx';
 import AboutSection from './sections/AboutSection.jsx';
 import SkillsSection from './sections/SkillsSection.jsx';
@@ -46,6 +46,17 @@ function AppContent() {
     () => projects.find((project) => project.id === selectedProjectId) ?? null,
     [selectedProjectId]
   );
+
+  useEffect(() => {
+    if (soundEnabled) return undefined;
+
+    const handleFirstInteraction = () => {
+      setSoundEnabled(true);
+    };
+
+    window.addEventListener('pointerdown', handleFirstInteraction, { once: true });
+    return () => window.removeEventListener('pointerdown', handleFirstInteraction);
+  }, [soundEnabled]);
 
   return (
     <div className="min-h-screen bg-void text-white">

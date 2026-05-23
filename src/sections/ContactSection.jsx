@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import MagneticButton from '../components/MagneticButton.jsx';
 import { fadeUp, stagger } from '../animations/sectionVariants.js';
+import { socialLinks } from '../data/portfolio.js';
 
 export default function ContactSection() {
   const [sent, setSent] = useState(false);
@@ -55,6 +56,23 @@ export default function ContactSection() {
             {sent ? 'Transmission Sent' : 'Send Message'}
           </MagneticButton>
         </motion.form>
+
+        <motion.div className="pointer-events-auto grid gap-3 sm:grid-cols-2" variants={fadeUp}>
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-3xl border border-cyan/20 bg-white/5 px-5 py-4 text-sm font-black text-slate-100 transition hover:border-cyan/60 hover:bg-cyan/10"
+            >
+              {link.label}
+            </a>
+          ))}
+        </motion.div>
+
+        <motion.p className="mt-3 text-sm leading-6 text-slate-400" variants={fadeUp}>
+        </motion.p>
       </motion.div>
     </section>
   );

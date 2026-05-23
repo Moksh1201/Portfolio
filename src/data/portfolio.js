@@ -7,6 +7,11 @@ export const sections = [
   { id: 'contact', label: 'Dock' }
 ];
 
+export const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/Moksh1201/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/moksh-madan-607b692b2/' }
+];
+
 export const skills = [
   { name: 'React', group: 'Interface systems', power: 94 },
   { name: 'TypeScript', group: 'Reliable product code', power: 91 },

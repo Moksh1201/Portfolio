@@ -31,10 +31,10 @@ export default function CameraRig({ curve, progress, selectedProject }) {
     }
 
     const smooth = 1 - Math.pow(0.001, delta);
-    camera.position.lerp(desiredPosition, smooth * 0.08);
-    cameraTarget.lerp(desiredLook, smooth * 0.1);
+    camera.position.lerp(desiredPosition, smooth * 0.14);
+    cameraTarget.lerp(desiredLook, smooth * 0.12);
     camera.lookAt(cameraTarget);
-    camera.rotation.z += (pointer.x * -0.035 - camera.rotation.z) * 0.035;
+    camera.rotation.z += (pointer.x * -0.035 - camera.rotation.z) * 0.04;
   });
 
   return null;
