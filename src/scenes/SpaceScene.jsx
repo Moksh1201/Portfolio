@@ -21,8 +21,8 @@ export default function SpaceScene({ progress, activeIndex, scrollVelocity, sele
 
   return (
     <>
-      <color attach="background" args={['#03040a']} />
-      <fog attach="fog" args={['#02020b', 18, 110]} />
+      <color attach="background" args={['#000000']} />
+      <fog attach="fog" args={['#000000', 18, 110]} />
 
       <ambientLight intensity={0.26} color="#7da8d6" />
       <pointLight position={[8, 8, 8]} intensity={48} color="#45d9ff" distance={38} />

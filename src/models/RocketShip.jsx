@@ -206,7 +206,7 @@ export default function RocketShip({ curve, progress, velocity }) {
     const point   = getPointOnCurve(curve, progress);
     const tangent = getTangentOnCurve(curve, progress);
     const ahead   = point.clone().addScaledVector(tangent, 1.5);
-    const target  = point.clone().addScaledVector(tangent, 0.04);
+    const target  = point.clone().addScaledVector(tangent, 0.04).add(new THREE.Vector3(0, -0.22, 0));
 
     const sm = smoothState.current;
     sm.px += (pointer.x - sm.px) * 0.06;
