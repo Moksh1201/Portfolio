@@ -16,8 +16,10 @@ import CanvasHealthProbe from './CanvasHealthProbe.jsx';
 
 const RocketShip = lazy(() => import('../models/RocketShip.jsx'));
 
-export default function SpaceScene({ progress, activeIndex, scrollVelocity, selectedProject, onSelectProject }) {
+export default function SpaceScene({ progress, activeIndex, scrollVelocity, selectedProject, onSelectProject, lowPerformance }) {
   const curve = useMemo(() => createJourneyCurve(), []);
+  const starCount = lowPerformance ? 3200 : 7800;
+  const sparkleCount = lowPerformance ? 90 : 180;
 
   return (
     <>
@@ -32,14 +34,14 @@ export default function SpaceScene({ progress, activeIndex, scrollVelocity, sele
       <CameraRig curve={curve} progress={progress} selectedProject={selectedProject} />
       <CanvasHealthProbe />
 
-      <Stars radius={92} depth={90} count={7800} factor={4.5} saturation={0.4} fade speed={0.22} />
-      <Sparkles count={180} scale={[34, 18, 92]} size={2.4} speed={0.18} opacity={0.18} color="#8fd7ff" />
-      <ParticleField />
-      <WarpTunnel curve={curve} progress={progress} velocity={scrollVelocity} activeIndex={activeIndex} />
+      <Stars radius={92} depth={90} count={starCount} factor={4.5} saturation={0.4} fade speed={0.22} />
+      <Sparkles count={sparkleCount} scale={[34, 18, 92]} size={lowPerformance ? 1.8 : 2.4} speed={0.18} opacity={0.14} color="#8fd7ff" />
+      <ParticleField lowPerformance={lowPerformance} />
+      <WarpTunnel curve={curve} progress={progress} velocity={scrollVelocity} activeIndex={activeIndex} lowPerformance={lowPerformance} />
 
       <RocketShip curve={curve} progress={progress} velocity={scrollVelocity} />
       <SpaceStation position={[-4.5, 1.3, -5.7]} />
-      <AsteroidBelt position={[4.5, -0.4, -16]} />
+      <AsteroidBelt position={[4.5, -0.4, -16]} lowPerformance={lowPerformance} />
       <GalaxyZone position={[-1, 0.4, -58]} />
 
       {projects.map((project, index) => (
@@ -49,13 +51,15 @@ export default function SpaceScene({ progress, activeIndex, scrollVelocity, sele
       <HologramBeacon position={[0, -2.4, -8]} scale={1.8} color={new THREE.Color('#45d9ff')} />
       <HologramBeacon position={[6, -2.2, -43]} scale={2.4} color={new THREE.Color('#ff4fd8')} />
 
-      <EffectComposer multisampling={0} enableNormalPass={false}>
-        <Bloom luminanceThreshold={0.18} luminanceSmoothing={0.22} intensity={1.25} mipmapBlur />
-        <DepthOfField focusDistance={0.018} focalLength={0.028} bokehScale={2.2} height={540} />
-        <ChromaticAberration offset={[0.0009, 0.0014]} />
-        <Noise opacity={0.025} />
-        <Vignette eskil={false} offset={0.18} darkness={0.78} />
-      </EffectComposer>
+      {!lowPerformance && (
+        <EffectComposer multisampling={0} enableNormalPass={false}>
+          <Bloom luminanceThreshold={0.18} luminanceSmoothing={0.22} intensity={1.25} mipmapBlur />
+          <DepthOfField focusDistance={0.018} focalLength={0.028} bokehScale={2.2} height={540} />
+          <ChromaticAberration offset={[0.0009, 0.0014]} />
+          <Noise opacity={0.025} />
+          <Vignette eskil={false} offset={0.18} darkness={0.78} />
+        </EffectComposer>
+      )}
     </>
   );
 }

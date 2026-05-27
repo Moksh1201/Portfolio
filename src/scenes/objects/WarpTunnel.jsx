@@ -3,11 +3,11 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { getPointOnCurve } from '../../utils/spacePath.js';
 
-export default function WarpTunnel({ curve, progress, velocity }) {
+export default function WarpTunnel({ curve, progress, velocity, lowPerformance }) {
   const linesRef = useRef(null);
   const materialRef = useRef(null);
   const positions = useMemo(() => {
-    const count = 90;
+    const count = lowPerformance ? 48 : 90;
     const array = new Float32Array(count * 2 * 3);
 
     for (let index = 0; index < count; index += 1) {

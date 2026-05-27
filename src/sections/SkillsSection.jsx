@@ -16,20 +16,22 @@ export default function SkillsSection() {
           <motion.p className="section-kicker" variants={fadeUp}>
             Skills asteroid belt
           </motion.p>
-          <motion.h2 className="section-title" variants={fadeUp}>
+          <motion.h2 className="section-title max-w-3xl" variants={fadeUp}>
             Systems, surfaces, motion, and cloud gravity.
           </motion.h2>
         </div>
 
-        <motion.div className="pointer-events-auto grid gap-3 sm:grid-cols-2 lg:grid-cols-4" variants={stagger}>
+        <motion.div className="pointer-events-auto grid gap-4 sm:grid-cols-2 lg:grid-cols-4" variants={stagger}>
           {skills.map((skill) => (
-            <motion.article key={skill.name} className="holo-panel min-h-44 p-4" variants={fadeUp} whileHover={{ y: -8, scale: 1.015 }}>
-              <div className="mb-8 flex items-center justify-between">
-                <h3 className="text-2xl font-black text-white">{skill.name}</h3>
-                <span className="text-sm font-black text-ion">{skill.power}</span>
+            <motion.article key={skill.name} className="section-panel min-h-44 p-5" variants={fadeUp} whileHover={{ y: -8, scale: 1.012 }}>
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <h3 className="text-xl font-black text-white">{skill.name}</h3>
+                <span className="rounded-full border border-cyan/20 bg-cyan/10 px-3 py-1 text-xs font-black uppercase text-cyan tracking-[0.24em]">
+                  {skill.power}
+                </span>
               </div>
-              <p className="text-sm text-slate-300">{skill.group}</p>
-              <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/10">
+              <p className="text-sm leading-7 text-slate-300">{skill.group}</p>
+              <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/10">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-cyan via-ion to-magenta"
                   initial={{ scaleX: 0 }}

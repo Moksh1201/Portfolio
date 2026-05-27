@@ -116,7 +116,7 @@ function PixelScatter({ position, seed, scale }) {
 }
 
 // ── Single Asteroid ──────────────────────────────────────────────────────────
-function Asteroid({ position, rotation, scaleX, scaleY, scaleZ, seed, spinAxis, spinSpeed, mat }) {
+function Asteroid({ position, rotation, scaleX, scaleY, scaleZ, seed, spinAxis, spinSpeed, mat, showScatter }) {
   const meshRef = useRef(null);
   const baseScale = (scaleX + scaleY + scaleZ) / 3;
 
@@ -149,8 +149,7 @@ function Asteroid({ position, rotation, scaleX, scaleY, scaleZ, seed, spinAxis, 
           flatShading
         />
       </mesh>
-      {/* Proximity pixel scatter halo */}
-      <PixelScatter position={position} seed={seed} scale={baseScale} />
+      {showScatter && <PixelScatter position={position} seed={seed} scale={baseScale} />}
     </>
   );
 }
@@ -194,13 +193,14 @@ function BeltDust({ count = 420 }) {
 }
 
 // ── Main Belt ────────────────────────────────────────────────────────────────
-export default function AsteroidBelt({ position }) {
+export default function AsteroidBelt({ position, lowPerformance }) {
   const groupRef = useRef(null);
 
   const asteroids = useMemo(() => {
-    return Array.from({ length: 52 }, (_, index) => {
+    const count = lowPerformance ? 20 : 52;
+    return Array.from({ length: count }, (_, index) => {
       const seed = index * 137 + 42;
-      const angle = (index / 52) * Math.PI * 2 + (seed % 100) * 0.01;
+      const angle = (index / count) * Math.PI * 2 + (seed % 100) * 0.01;
       const radius = 3.2 + Math.sin(index * 1.7) * 0.9 + ((seed % 100) / 100) * 0.9;
 
       const baseScale = 0.13 + ((seed % 100) / 100) * 0.44;
@@ -230,9 +230,10 @@ export default function AsteroidBelt({ position }) {
         spinAxis,
         spinSpeed: 0.06 + ((seed % 100) / 100) * 0.22,
         mat: weightedPick(ASTEROID_TYPES, seed),
+        showScatter: !lowPerformance,
       };
     });
-  }, []);
+  }, [lowPerformance]);
 
   useFrame((state, delta) => {
     groupRef.current.rotation.y += delta * 0.055;
@@ -247,7 +248,7 @@ export default function AsteroidBelt({ position }) {
         <meshBasicMaterial color="#c87820" transparent opacity={0.06} />
       </mesh>
 
-      <BeltDust count={420} />
+      <BeltDust count={lowPerformance ? 160 : 420} />
 
       {asteroids.map((a, i) => (
         <Asteroid key={i} {...a} />

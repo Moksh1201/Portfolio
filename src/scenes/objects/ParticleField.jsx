@@ -2,10 +2,10 @@ import { useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export default function ParticleField() {
+export default function ParticleField({ lowPerformance }) {
   const pointsRef = useRef(null);
   const { size } = useThree();
-  const count = size.width < 700 ? 900 : 1700;
+  const count = lowPerformance ? 620 : size.width < 700 ? 900 : 1700;
 
   const { positions, colors } = useMemo(() => {
     const positionArray = new Float32Array(count * 3);
